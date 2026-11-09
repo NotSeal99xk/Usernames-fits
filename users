@@ -1,0 +1,563 @@
+--==================================================
+-- ROBLOX USERS COPY MENU
+-- Made by NotSeal
+--==================================================
+
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local UserInputService = game:GetService("UserInputService")
+
+--==================================================
+-- USER LIST
+--==================================================
+
+local users = {
+    "prwttydav",
+    "er1ckpx",
+    "taif2103",
+    "lili224amo",
+    "saravxn0",
+    "kiaxzev",
+    "corosfx",
+    "fleustes",
+    "PrivLeo",
+    "abovetheclouvd z",
+    "1IHTK",
+    "iloveyouO999",
+    "yanwxqq",
+    "3eqq3",
+    "qwvxsp",
+    "p6etal",
+    "adQrxzo",
+    "ims9ved",
+    "i_sophxz",
+    "mm2_TheBest008",
+    "vis9ge",
+    "MunchkinBobateaQueen",
+    "annkund",
+    "darky_gg",
+    "St3ffyqx",
+    "heyxqa",
+    "prais9d",
+    "vessify",
+    "N6verror",
+    "dewwle",
+    "HELL_POPSTAR",
+    "Orlxrgz",
+    "nie_rip0",
+    "lionxlit",
+    "leoxrox1",
+    "4celestita",
+    "morri12212",
+    "k_rodri2",
+    "pr9views",
+    "JJULIEEZZ",
+    "Brandonwantgodly",
+    "hilovedmdsyt",
+    "lunadeisygamers",
+    "00_iiSEB4S",
+    "Superdunkan2019",
+    "qtylillie",
+    "ser_zhh12",
+    "ninja7358gg",
+    "CrashoutCamyy",
+    "losmanodi",
+    "finqxn",
+    "Lvsvxt",
+    "Fanka_ekipi",
+    "nvmchr0n1s",
+    "Pawsomelol",
+    "tr6ixn",
+    "mysticalbrcaths",
+    "mx2013mx",
+    "The_ManCrazy323",
+    "evllus",
+    "DnDmenu",
+    "zyethics",
+    "destroyedcody",
+    "p6rasocial",
+    "kx4den",
+    "linnybilli",
+    "izmauixx",
+    "bles9ed",
+    "zxrqtn",
+    "ceasersallad",
+    "JAN_noa01",
+    "lixlst",
+    "unph6sed",
+    "chxtRoom",
+    "admir6d",
+    "1uumqr",
+    "Piholo3",
+    "l3rlvpv",
+    "prim9ry",
+    "ps4profemale",
+    "77xxstar",
+    "queenlili460",
+    "M7md_q879",
+    "xffghghxffghg",
+    "dndmenu",
+    "pr9cis",
+    "SallyTooLong",
+    "mihqld",
+    "infectedMio",
+    "pawjxdes",
+    "eriklindo134",
+    "umjamm",
+    "sp9iced",
+    "nvmmred",
+    "oneeiite",
+    "regardingkegwkw",
+    "r157z",
+    "Yk1dairer",
+    "zxlosash",
+    "svtuxc",
+    "szecnq",
+    "m1lzzg",
+    "sorekyites",
+    "usebobav_4",
+    "aspirezs",
+    "lmCandystxr",
+    "tacticalflips",
+    "Juan1010150",
+    "abiblozx",
+    "Cheplashkaa682",
+    "d4rky_gg",
+    "6_E27",
+    "agacnb12",
+    "user7203849201774838",
+    "CinnabunXOXO",
+    "its_8rooks",
+    "billie_alexander3",
+    "aarony209",
+    "24KMATCHAA",
+    "Bootchie2014",
+    "L0V3DBABE",
+    "Alextothestar",
+    "x3nixx_c",
+    "agonyz9d",
+    "pwurrorii8",
+    "mm2notsopro2",
+    "0kSyxn",
+    "san7ra",
+    "laffanyx",
+    "aurzeii",
+    "nickyxzd",
+    "cemarre",
+    "Maxlevi123garfiled",
+    "ykcarprilooo",
+    "egoedbrain",
+    "SUGGARBAXB",
+    "rinvorii",
+    "Mikovsx",
+    "OP_OMF",
+    "noteynn",
+    "cursique",
+    "iben412",
+    "samuxd12347086",
+    "fabrxio80",
+    "icarovarami1",
+    "shotbymars",
+    "vexlimm2",
+    "9lbum",
+    "Mirella_00123502",
+    "RAFAEL_IDK3"
+}
+
+--==================================================
+-- CLEAN USERS / REMOVE DUPLICATES
+--==================================================
+
+local cleanUsers = {}
+local seen = {}
+
+for _, username in ipairs(users) do
+    username = username:gsub("%s+", "")
+
+    local key = username:lower()
+
+    if username ~= "" and not seen[key] then
+        seen[key] = true
+        table.insert(cleanUsers, username)
+    end
+end
+
+--==================================================
+-- REMOVE OLD GUI
+--==================================================
+
+local oldGui = CoreGui:FindFirstChild("RobloxUsersCopyMenu")
+
+if oldGui then
+    oldGui:Destroy()
+end
+
+--==================================================
+-- SCREEN GUI
+--==================================================
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "RobloxUsersCopyMenu"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = CoreGui
+
+--==================================================
+-- FLOATING BUTTON
+--==================================================
+
+local FloatingButton = Instance.new("TextButton")
+FloatingButton.Name = "FloatingButton"
+FloatingButton.Size = UDim2.new(0, 52, 0, 52)
+FloatingButton.Position = UDim2.new(0, 20, 0.5, -26)
+FloatingButton.BackgroundColor3 = Color3.fromRGB(35, 38, 48)
+FloatingButton.Text = "📋"
+FloatingButton.TextSize = 25
+FloatingButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+FloatingButton.Font = Enum.Font.GothamBold
+FloatingButton.Active = true
+FloatingButton.Parent = ScreenGui
+
+local ButtonCorner = Instance.new("UICorner")
+ButtonCorner.CornerRadius = UDim.new(1, 0)
+ButtonCorner.Parent = FloatingButton
+
+local ButtonStroke = Instance.new("UIStroke")
+ButtonStroke.Color = Color3.fromRGB(120, 190, 255)
+ButtonStroke.Thickness = 2
+ButtonStroke.Parent = FloatingButton
+
+--==================================================
+-- MAIN MENU
+--==================================================
+
+local Main = Instance.new("Frame")
+Main.Name = "Main"
+Main.Size = UDim2.new(0, 360, 0, 500)
+Main.Position = UDim2.new(0.5, -180, 0.5, -250)
+Main.BackgroundColor3 = Color3.fromRGB(25, 27, 35)
+Main.BorderSizePixel = 0
+Main.Visible = false
+Main.Active = true
+Main.Parent = ScreenGui
+
+local MainCorner = Instance.new("UICorner")
+MainCorner.CornerRadius = UDim.new(0, 12)
+MainCorner.Parent = Main
+
+local MainStroke = Instance.new("UIStroke")
+MainStroke.Color = Color3.fromRGB(100, 175, 255)
+MainStroke.Thickness = 2
+MainStroke.Parent = Main
+
+--==================================================
+-- TITLE
+--==================================================
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, -100, 0, 45)
+Title.Position = UDim2.new(0, 12, 0, 5)
+Title.BackgroundTransparency = 1
+Title.Text = "📋 Copiar Usuarios + Avatares"
+Title.TextColor3 = Color3.fromRGB(220, 235, 255)
+Title.TextSize = 17
+Title.Font = Enum.Font.GothamBold
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Parent = Main
+
+--==================================================
+-- MINIMIZE BUTTON
+--==================================================
+
+local Minimize = Instance.new("TextButton")
+Minimize.Size = UDim2.new(0, 35, 0, 32)
+Minimize.Position = UDim2.new(1, -78, 0, 9)
+Minimize.BackgroundColor3 = Color3.fromRGB(55, 65, 85)
+Minimize.Text = "—"
+Minimize.TextColor3 = Color3.new(1, 1, 1)
+Minimize.TextSize = 18
+Minimize.Font = Enum.Font.GothamBold
+Minimize.Parent = Main
+
+local MinCorner = Instance.new("UICorner")
+MinCorner.CornerRadius = UDim.new(0, 7)
+MinCorner.Parent = Minimize
+
+--==================================================
+-- CLOSE BUTTON
+--==================================================
+
+local Close = Instance.new("TextButton")
+Close.Size = UDim2.new(0, 35, 0, 32)
+Close.Position = UDim2.new(1, -39, 0, 9)
+Close.BackgroundColor3 = Color3.fromRGB(170, 65, 75)
+Close.Text = "X"
+Close.TextColor3 = Color3.new(1, 1, 1)
+Close.TextSize = 16
+Close.Font = Enum.Font.GothamBold
+Close.Parent = Main
+
+local CloseCorner = Instance.new("UICorner")
+CloseCorner.CornerRadius = UDim.new(0, 7)
+CloseCorner.Parent = Close
+
+--==================================================
+-- COUNTER
+--==================================================
+
+local Counter = Instance.new("TextLabel")
+Counter.Size = UDim2.new(1, -20, 0, 25)
+Counter.Position = UDim2.new(0, 10, 0, 48)
+Counter.BackgroundTransparency = 1
+Counter.Text = "Usuarios: " .. #cleanUsers
+Counter.TextColor3 = Color3.fromRGB(160, 190, 220)
+Counter.TextSize = 13
+Counter.Font = Enum.Font.Gotham
+Counter.TextXAlignment = Enum.TextXAlignment.Left
+Counter.Parent = Main
+
+--==================================================
+-- SCROLLING LIST
+--==================================================
+
+local Scroll = Instance.new("ScrollingFrame")
+Scroll.Size = UDim2.new(1, -20, 1, -90)
+Scroll.Position = UDim2.new(0, 10, 0, 78)
+Scroll.BackgroundColor3 = Color3.fromRGB(32, 35, 45)
+Scroll.BorderSizePixel = 0
+Scroll.ScrollBarThickness = 5
+Scroll.ScrollBarImageColor3 = Color3.fromRGB(120, 190, 255)
+Scroll.CanvasSize = UDim2.new(0, 0, 0, #cleanUsers * 55)
+Scroll.Parent = Main
+
+local ScrollCorner = Instance.new("UICorner")
+ScrollCorner.CornerRadius = UDim.new(0, 8)
+ScrollCorner.Parent = Scroll
+
+local Layout = Instance.new("UIListLayout")
+Layout.Padding = UDim.new(0, 5)
+Layout.SortOrder = Enum.SortOrder.LayoutOrder
+Layout.Parent = Scroll
+
+--==================================================
+-- CREATE USER ROWS
+--==================================================
+
+for index, username in ipairs(cleanUsers) do
+
+    local Row = Instance.new("Frame")
+    Row.Size = UDim2.new(1, -10, 0, 50)
+    Row.BackgroundColor3 = Color3.fromRGB(43, 47, 59)
+    Row.BorderSizePixel = 0
+    Row.LayoutOrder = index
+    Row.Parent = Scroll
+
+    local RowCorner = Instance.new("UICorner")
+    RowCorner.CornerRadius = UDim.new(0, 7)
+    RowCorner.Parent = Row
+
+    -- Avatar
+
+    local Avatar = Instance.new("ImageLabel")
+    Avatar.Size = UDim2.new(0, 38, 0, 38)
+    Avatar.Position = UDim2.new(0, 6, 0, 6)
+    Avatar.BackgroundColor3 = Color3.fromRGB(60, 65, 80)
+    Avatar.Image = ""
+    Avatar.Parent = Row
+
+    local AvatarCorner = Instance.new("UICorner")
+    AvatarCorner.CornerRadius = UDim.new(1, 0)
+    AvatarCorner.Parent = Avatar
+
+    task.spawn(function()
+        local success, userId = pcall(function()
+            return Players:GetUserIdFromNameAsync(username)
+        end)
+
+        if success and userId then
+            Avatar.Image =
+                "rbxthumb://type=AvatarHeadShot&id="
+                .. userId .. "&w=48&h=48"
+        end
+    end)
+
+    -- Username
+
+    local UsernameButton = Instance.new("TextButton")
+    UsernameButton.Size = UDim2.new(1, -105, 1, 0)
+    UsernameButton.Position = UDim2.new(0, 52, 0, 0)
+    UsernameButton.BackgroundTransparency = 1
+    UsernameButton.Text = username
+    UsernameButton.TextColor3 = Color3.fromRGB(235, 240, 255)
+    UsernameButton.TextSize = 13
+    UsernameButton.Font = Enum.Font.GothamMedium
+    UsernameButton.TextXAlignment = Enum.TextXAlignment.Left
+    UsernameButton.TextTruncate = Enum.TextTruncate.AtEnd
+    UsernameButton.Parent = Row
+
+    -- Copy button
+
+    local CopyButton = Instance.new("TextButton")
+    CopyButton.Size = UDim2.new(0, 45, 0, 32)
+    CopyButton.Position = UDim2.new(1, -51, 0.5, -16)
+    CopyButton.BackgroundColor3 = Color3.fromRGB(75, 135, 205)
+    CopyButton.Text = "COPY"
+    CopyButton.TextColor3 = Color3.new(1, 1, 1)
+    CopyButton.TextSize = 10
+    CopyButton.Font = Enum.Font.GothamBold
+    CopyButton.Parent = Row
+
+    local CopyCorner = Instance.new("UICorner")
+    CopyCorner.CornerRadius = UDim.new(0, 6)
+    CopyCorner.Parent = CopyButton
+
+    local function copyUsername()
+        local copied = false
+
+        if setclipboard then
+            copied = pcall(setclipboard, username)
+        elseif toclipboard then
+            copied = pcall(toclipboard, username)
+        end
+
+        if copied then
+            CopyButton.Text = "DONE"
+        else
+            print("Username: " .. username)
+            CopyButton.Text = "PRINTED"
+        end
+
+        task.delay(1, function()
+            if CopyButton.Parent then
+                CopyButton.Text = "COPY"
+            end
+        end)
+    end
+
+    CopyButton.MouseButton1Click:Connect(copyUsername)
+    UsernameButton.MouseButton1Click:Connect(copyUsername)
+end
+
+--==================================================
+-- OPEN / CLOSE MENU
+--==================================================
+
+FloatingButton.MouseButton1Click:Connect(function()
+    Main.Visible = not Main.Visible
+end)
+
+Minimize.MouseButton1Click:Connect(function()
+    Main.Visible = false
+end)
+
+Close.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+--==================================================
+-- DRAG FLOATING BUTTON
+--==================================================
+
+local floatingDragging = false
+local floatingDragStart
+local floatingStartPosition
+local floatingMoved = false
+
+FloatingButton.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+        or input.UserInputType == Enum.UserInputType.Touch then
+
+        floatingDragging = true
+        floatingMoved = false
+        floatingDragStart = input.Position
+        floatingStartPosition = FloatingButton.Position
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if floatingDragging then
+        if input.UserInputType == Enum.UserInputType.MouseMovement
+            or input.UserInputType == Enum.UserInputType.Touch then
+
+            local delta = input.Position - floatingDragStart
+
+            if delta.Magnitude > 8 then
+                floatingMoved = true
+            end
+
+            if floatingMoved then
+                FloatingButton.Position = UDim2.new(
+                    floatingStartPosition.X.Scale,
+                    floatingStartPosition.X.Offset + delta.X,
+                    floatingStartPosition.Y.Scale,
+                    floatingStartPosition.Y.Offset + delta.Y
+                )
+            end
+        end
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+        or input.UserInputType == Enum.UserInputType.Touch then
+
+        floatingDragging = false
+    end
+end)
+
+--==================================================
+-- DRAG MAIN MENU
+--==================================================
+
+local draggingMain = false
+local mainDragStart
+local mainStartPosition
+local mainMoved = false
+
+Main.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+        or input.UserInputType == Enum.UserInputType.Touch then
+
+        draggingMain = true
+        mainMoved = false
+        mainDragStart = input.Position
+        mainStartPosition = Main.Position
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if draggingMain then
+        if input.UserInputType == Enum.UserInputType.MouseMovement
+            or input.UserInputType == Enum.UserInputType.Touch then
+
+            local delta = input.Position - mainDragStart
+
+            if delta.Magnitude > 8 then
+                mainMoved = true
+            end
+
+            if mainMoved then
+                Main.Position = UDim2.new(
+                    mainStartPosition.X.Scale,
+                    mainStartPosition.X.Offset + delta.X,
+                    mainStartPosition.Y.Scale,
+                    mainStartPosition.Y.Offset + delta.Y
+                )
+            end
+        end
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+        or input.UserInputType == Enum.UserInputType.Touch then
+
+        draggingMain = false
+    end
+end)
+
+--==================================================
+-- LOADED
+--==================================================
+
+print("NotSeal Users Copy Menu loaded!")
+print("Total de usuarios: " .. #cleanUsers)
