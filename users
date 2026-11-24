@@ -13,6 +13,7 @@ local UserInputService = game:GetService("UserInputService")
 
 local users = {
     "prwttydav",
+    "deprivedmil",
     "djitsfyne",
     "Jayden_kvt",
     "bfjsidioobdwuic",
